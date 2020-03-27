@@ -10,10 +10,11 @@ const Show = (props) => {
         <h2>{props.name}</h2>
         {/* name */}
         <img src={posterURL} />
+        <h3>{props.popularity}</h3>
         {/* overview */}
-        <p>{props.overview}</p>
+        <p>Plot: {props.overview}</p>
         {/* vote_average */}
-        <p>{props.vote_average}</p>
+        <p>Average vote: {props.vote_average}</p>
         {/* vote count */}
         <p>{props.vote_count}</p>
       </li>
