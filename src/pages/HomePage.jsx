@@ -9,7 +9,7 @@ import Show from '../components/Show'
 const HomePage = () => {
   const [tvShows, setTvShows] = useState([])
   const [searchFilter, setSearchFilter] = useState('')
-  const [showRandom, setShowRandom] = useState([])
+  const [randomShowIndex, setRandomShowIndex] = useState(0)
 
   // older use effect but it works, so go
   useEffect(() => {
@@ -21,6 +21,8 @@ const HomePage = () => {
         const allShows = apiData.results
         setTvShows(allShows)
         console.log(tvShows)
+        const newRandomShowIndex = Math.floor(Math.random() * allShows.length)
+        setRandomShowIndex(newRandomShowIndex)
       })
   }, [])
 
@@ -47,7 +49,8 @@ const HomePage = () => {
     console.log(e.target.value)
   }
 
-  const getARandom = Math.floor(Math.random() * tvShows.length)
+  // const randomShowIndex = Math.floor(Math.random() * tvShows.length)
+  const randomShow = tvShows[randomShowIndex]
 
   return (
     <main>
@@ -59,22 +62,22 @@ const HomePage = () => {
           placeholder="search your list"
           onChange={updateSearchFilter}
         />
+        <ul class="featured-show">
+          {randomShow ? (
+            <>
+              <div>
+                <h3>Featured TV Show</h3>
+                <ul class="list-group list-group-flush">
+                  <li>{randomShow.name}</li>
+                  <li>{randomShow.overview}</li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </ul>
       </header>
-      <ul class="featured-show">
-        {getARandom}
-        {/* .map((show) => {
-          // return (
-          //   <Show
-          //     name={show.name}
-          //     poster_path={show.poster_path}
-          //     popularity={show.popularity}
-          //     overview={show.overview}
-          //     vote_average={show.vote_average}
-          //     vote_count={show.vote_count}
-          //   />
-          // )
-        })} */}
-      </ul>
       <ul class="show">
         {tvShows
           .filter((show) => {

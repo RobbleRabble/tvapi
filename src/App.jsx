@@ -21,7 +21,7 @@ const App = () => {
       </header>
       <Switch>
         <Route exact path="/" component={HomePage}></Route>
-        <Route exact path="/show/:showId" component={ShowProfile}></Route>
+        <Route path="/show/:showId" component={ShowProfile}></Route>
         <Route path="*" component={NotFound}></Route>
       </Switch>
     </Router>

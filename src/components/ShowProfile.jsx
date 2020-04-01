@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 // import axios from 'axios'
 import Credit from '../components/Credit'
+import axios from 'axios'
 // import Show from '../components/Show'
 
 const ShowProfile = (props) => {
   const showId = props.match.params.showId
   // const showName = props.match.params.name
 
-  const [info, setInfo] = useState([])
-  // const [selectedShow, setSelectedShow] = useState([])
+  const [crew, setCrew] = useState([])
+  const [cast, setCast] = useState([])
+  const [details, setDetails] = useState({})
 
   // const getShowInformation = async () => {
   //   const resp = await axios.get(
@@ -22,18 +24,40 @@ const ShowProfile = (props) => {
   // }, [])
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=1dec07b813675b0a973263be687652ca&language=en-US`
-    )
-      .then((response) => response.json())
-      .then((apiData) => {
-        const cast = apiData.results
-        setInfo(cast)
-        console.log(info)
+    axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=1dec07b813675b0a973263be687652ca&language=en-US`
+      )
+      .then((response) => {
+        const apiData = response.data
+        const newCast = apiData.cast
+        const newCrew = apiData.crew
 
-        // getARandom()
+        setCast(newCast)
+        setCrew(newCrew)
       })
-  }, [])
+
+    const detailsUrl = `https://api.themoviedb.org/3/tv/${showId}?api_key=1dec07b813675b0a973263be687652ca&language=en-US`
+    axios.get(detailsUrl).then((detailsResponse) => {
+      const detailsApiData = detailsResponse.data
+
+      setDetails(detailsApiData)
+    })
+  }, [showId])
+
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=1dec07b813675b0a973263be687652ca&language=en-US`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((apiData) => {
+  //       const cast = apiData.results
+  //       setInfo(cast)
+  //       console.log(info)
+
+  //       // getARandom()
+  //     })
+  // }, [])
 
   // const getSelectedShow = async () => {
   //   const resp = await axios.get(
@@ -61,18 +85,42 @@ const ShowProfile = (props) => {
   //     })
   // }, [])
 
+  // const cast = [
+  //   {
+  //     id: 11113,
+  //     name: 'Bobby',
+  //   },
+  //   {
+  //     id: 11114,
+  //     name: 'Peggy',
+  //   },
+  // ]
+
+  // const crew = [
+  //   {
+  //     id: 222224,
+  //     name: 'Fred',
+  //   },
+
+  //   {
+  //     id: 222225,
+  //     name: 'Nancy',
+  //   },
+  // ]
+
   return (
     <div>
-      <header>Show page for {showId}! That's</header>
-      <h1>
-        {/* {setSelectedShow.filter(showId).map((show) => {
-          return
-          ;<Show name={show.name} />
+      <header>
+        <h1>Show page for {details.name}! </h1>
+      </header>
+      <h2>Details</h2>
+      <h3>Cast!</h3>
+      <ul>
+        {cast.map((person) => {
+          return <li>{person.name}</li>
         })}
-        } */}
-      </h1>
-      <ul class="show">
-        {info.map((credit, index) => {
+
+        {/* {info.map((credit, index) => {
           return (
             <Credit
               character={credit.character}
@@ -80,6 +128,12 @@ const ShowProfile = (props) => {
               name={credit.name}
             />
           )
+        })} */}
+      </ul>
+      <h3>Crew!</h3>
+      <ul>
+        {crew.map((person) => {
+          return <li>{person.name}</li>
         })}
       </ul>
     </div>
