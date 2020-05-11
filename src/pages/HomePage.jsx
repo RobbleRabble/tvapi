@@ -51,6 +51,8 @@ const HomePage = () => {
 
   // const randomShowIndex = Math.floor(Math.random() * tvShows.length)
   const randomShow = tvShows[randomShowIndex]
+  // const posterURL = `https://image.tmdb.org/t/p/w185_and_h278_bestv2/${randomShow.poster_path}`
+  // const randomShowURL = `https://image.tmdb.org/t/p/w185_and_h278_bestv2/${randomShow.}`
 
   return (
     <main>
@@ -68,7 +70,11 @@ const HomePage = () => {
               <div>
                 <h3>Featured TV Show</h3>
                 <ul class="list-group list-group-flush">
+                  {/* poster path is off */}
                   <li>{randomShow.name}</li>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2/${randomShow.poster_path}`}
+                  />
                   <li>{randomShow.overview}</li>
                 </ul>
               </div>
@@ -98,23 +104,6 @@ const HomePage = () => {
               />
             )
           })}
-        <li>{/* name, overview, poster_path, vote_average vote_count */}</li>
-        {/* {tvShows
-          .filter((show) => {
-            return show.name.toLowerCase().includes(searchFilter.toLowerCase())
-          }) */}
-
-        {/* {tvShows.map((show) => {
-          console.log('got here', show)
-          return (
-            <Show
-              key={show.id}
-              id={show.id}
-              name={show.name}
-              rating={show.rating}
-            />
-          )
-        })} */}
       </ul>
     </main>
   )

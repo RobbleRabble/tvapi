@@ -23,17 +23,4 @@ const Show = (props) => {
   )
 }
 
-// const Cast = (props) => {
-//   const {character, id, name,}
-//   const actorURL = `https://image.tmdb.org/t/p/w185_and_h278_bestv2/${props.poster_path}`
-//   return (
-//     <li>
-//       <h1>Cast for show</h1>
-//       <h2>{character}</h2>
-//       <img src ={actorURL}/>
-//       <p>Played by {name} </p>
-//     </li>
-//   )
-// }
-
 export default Show
